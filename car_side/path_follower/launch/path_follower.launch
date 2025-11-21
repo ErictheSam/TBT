@@ -1,0 +1,19 @@
+<launch>
+<arg name='trip_id' default='ID_go' />
+  <node name='line_tracker' pkg="path_follower" type="line_follow.py" output="screen">
+    <param name='image_size' value='280' type='int' />
+    <param name='max_speed' value='0.8' type='double' />
+    <param name='smooth_speed' value='0.3' type='double' />
+    <param name='stop_speed' value='0.1' type='double' />
+    <param name='rotate_speed' value='0.3' type='double' />
+    <param name='perception_field' value='0.2' type='double' />
+    <param name='odometry_delta' value='0.25' type='double' />
+    <param name="window_size" value="2" type="int" />
+    <param name="distance_tolerance" value="0.2" type="double" />
+    <param name="trip" value="$(arg trip_id)" type="str" />
+    <rosparam ns='PID_controller' command='load' file='$(find path_follower)/parameters/PID_line_following_param.yaml' />
+    <rosparam ns='ID_go' command='load' file='$(find path_follower)/parameters/ID_go.yaml' />
+  </node>
+  <include file="$(find turn_on_wheeltec_robot)/launch/turn_on_wheeltec_robot.launch" />
+  <include file="$(find turn_on_wheeltec_robot)/launch/wheeltec_lidar.launch" />
+</launch>

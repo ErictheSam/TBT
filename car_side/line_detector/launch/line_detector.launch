@@ -1,0 +1,9 @@
+<launch>
+  <node name='infer' pkg="line_detector" type="predict.py" output="screen">
+    <param name='image_size' value='280' type='int' />
+    <param name='usbcam_height' value='400' type='int' />
+    <param name='usbcam_width' value='640' type='int' />
+    <param name='model_name' value='detector.trt' type='string' />
+  </node>
+  <include file="$(find usb_cam)/launch/usb_cam-line-follower.launch" />
+</launch>
